@@ -236,7 +236,7 @@ if __name__ == "__main__":
     # Question Three
     q3 = MultipleChoiceQuestion('q3')
     q3.question_text = 'What shade of red do you prefer?'
-    q2.parts = SelectOne(
+    q3.parts = SelectOne(
         Option('q3a', 'Crimson'),
         Option('q3b', 'Ruby'),
         Option('q3c', 'Scarlet'),
@@ -269,11 +269,21 @@ if __name__ == "__main__":
 
     q7 = RepeatingTypeQuestion('q7')
     q7.question_text = 'What are the names of your children?'
+    q7.display_conditions.append(
+        Condition('q6', 'Yes')
+    )
 
     q7_1 = InputTextQuestion('q7_1')
     q7_1.question_text= 'Name? (q to quit)'
 
     q7.children.append(q7_1)
+
+    # q7_2 = MultipleChoiceQuestion('q7_2')
+    # q7_2.question_text = 'Sex?'
+    # q7_2.parts = SelectOne(
+    #     Option('q7_2a', 'Male'),
+    #     Option('q7_2b', 'Female')
+    # )
 
 
     ###
@@ -289,7 +299,6 @@ if __name__ == "__main__":
     questionnaire.questions.append(q5)
     questionnaire.questions.append(q6)
     questionnaire.questions.append(q7)
-    questionnaire.questions.append(q6)
 
     runner = QuestionnaireRunner(questionnaire)
     runner.start()
