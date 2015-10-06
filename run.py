@@ -94,16 +94,32 @@ class RepeatingTypeQuestion(Question):
 
     def __init__(self, reference):
         super(RepeatingTypeQuestion, self).__init__('RepeatingTypeQuestion', reference)
+        self.in_series = False
 
     def ask(self):
-        response = []
+        response = {}
 
-        for child in self.children:
-            while True:
-                _answer = self._ask(child)
-                if _answer == 'q':
-                    break
-                response.append(_answer)
+        if self.in_series:
+            for child in self.children:
+                response[child.reference] = []
+                while True:
+                    _answer = self._ask(child)
+                    if _answer == 'q':
+                        break
+                    response[child.reference].append(_answer)
+        else:
+            finished = False
+            for child in self.children:
+                if not child.reference in response:
+                    response[child.reference] = []
+
+            while not finished:
+                for child in self.children:
+                    _answer = self._ask(child)
+                    if _answer == 'q':
+                        finished = True
+                        break
+                    response[child.reference].append(_answer)
 
         return response
 
@@ -278,12 +294,13 @@ if __name__ == "__main__":
 
     q7.children.append(q7_1)
 
-    # q7_2 = MultipleChoiceQuestion('q7_2')
-    # q7_2.question_text = 'Sex?'
-    # q7_2.parts = SelectOne(
-    #     Option('q7_2a', 'Male'),
-    #     Option('q7_2b', 'Female')
-    # )
+    q7_2 = MultipleChoiceQuestion('q7_2')
+    q7_2.question_text = 'Sex?'
+    q7_2.parts = SelectOne(
+        Option('q7_2a', 'Male'),
+        Option('q7_2b', 'Female')
+    )
+    q7.children.append(q7_2)
 
 
     ###
