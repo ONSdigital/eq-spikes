@@ -27,8 +27,6 @@ class Questionnaire(object):
                     return
 
         # Next sequential question
-
-       
         self.index = self.index + 1
         self.current = self.questions[self.index]
 
@@ -76,6 +74,10 @@ class Question(object):
         self.type = type
         self.reference = reference
 
+    def ask(self):
+        print self.reference + ": " + self.question_text
+        userinput = raw_input('Your answer: ')
+        return userinput
 
 class InputTextQuestion(Question):
     """
@@ -85,6 +87,28 @@ class InputTextQuestion(Question):
     def __init__(self, reference):
         super(InputTextQuestion, self).__init__('InputTextQuestion', reference)
 
+class RepeatingTypeQuestion(Question):
+    """
+    InputText Question subclass
+    """
+
+    def __init__(self, reference):
+        super(RepeatingTypeQuestion, self).__init__('RepeatingTypeQuestion', reference)
+
+    def ask(self):
+        response = []
+
+        for child in self.children:
+            while True:
+                _answer = self._ask(child)
+                if _answer == 'q':
+                    break
+                response.append(_answer)
+
+        return response
+
+    def _ask(self, question):
+        return question.ask()
 
 class Option(object):
     """
@@ -112,6 +136,15 @@ class MultipleChoiceQuestion(Question):
     """
     def __init__(self, reference):
         super(MultipleChoiceQuestion, self).__init__('MultipleChoiceQuestion', reference)
+
+    def ask(self):
+        print self.reference + ": " + self.question_text
+        print "Please choose one of the following:"
+        for option in self.parts.options:
+            print option.value
+
+        userinput = raw_input('Your answer: ')
+        return userinput
 
 
 class YesNoQuestion(MultipleChoiceQuestion):
@@ -165,11 +198,7 @@ class QuestionnaireRunner(object):
         print self.questionnaire.responses
 
     def ask(self, question):
-        print question.reference + ": " + question.question_text
-
-        userinput = raw_input('Your answer: ')
-
-        return userinput
+        return question.ask()
 
 
 # Main program
@@ -238,11 +267,11 @@ if __name__ == "__main__":
         'required'
     )
 
-    q7 = RepeatingGroup('q7')
+    q7 = RepeatingTypeQuestion('q7')
     q7.question_text = 'What are the names of your children?'
 
     q7_1 = InputTextQuestion('q7_1')
-    q7_1.question_text('Name? (q to quit)')
+    q7_1.question_text= 'Name? (q to quit)'
 
     q7.children.append(q7_1)
 
@@ -260,6 +289,7 @@ if __name__ == "__main__":
     questionnaire.questions.append(q5)
     questionnaire.questions.append(q6)
     questionnaire.questions.append(q7)
+    questionnaire.questions.append(q6)
 
     runner = QuestionnaireRunner(questionnaire)
     runner.start()
