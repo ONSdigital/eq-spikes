@@ -1,0 +1,370 @@
+{
+	"questionReference":"q1",
+	"questionType" : "MultipleChoice",
+	"questionLang":"en_GB",
+	"parts" : {
+		"selectOne": [
+			{
+				"label" : "Blue",
+				"name":"q1a",
+				"value": "Blue"
+			},
+			{
+				"label" : "Red",
+				"name":"q1b",
+				"value": "Red"
+			},
+			{
+				"label":"Yellow",
+				"name":"q1c",
+				"value":"Yellow"
+			}
+		]
+	},
+	"questionText":"What is your favourite colour",
+	"children":[],
+	"validation":{
+		"required":"true",
+	},
+	"displayProperties":{},
+	"displayConditions":[],
+	"skipConditions":[],
+	"branchConditions":[
+		{
+			"jumpTo": {
+				"question":"q4",
+				"condition": {
+					"value": {
+						"is":"Yellow"
+					}
+				}
+			},
+		}
+	]
+},
+{
+	"questionReference":"q2",
+	"questionType" : "MultipleChoice",
+	"questionLang":"en_GB",
+
+	"parts" : {
+		"selectOne": [
+			{
+				"label" : "Sky Blue",
+				"name":"q2a",
+				"value": "Sky Blue"
+			},
+			{
+				"label" : "Royal Blue",
+				"name":"q2b",
+				"value": "Royal Blue"
+			},
+			{
+				"label" : "Navy Blue",
+				"name":"q2c",
+				"value": "Navy Blue"
+			}
+		]
+	},
+	"questionText":"What colour blue do you prefer?",
+	"children":[],
+	"validation":{},
+	"displayProperties":{},
+	"displayConditions":[
+		{
+			"questionReference":"q1",
+			"value" : {
+				"is" : "Blue"
+			}
+		}
+	],
+	"skipConditions":[
+		{
+			"questionReference":"q1",
+			"value" : {
+				"is not" : "Blue"
+			}
+		}
+	],
+	"branchConditions":[]
+},
+{
+	"questionReference":"q3",
+	"questionType" : "MultipleChoice",
+	"questionLang":"en_GB",
+	"parts" : {
+		"selectOne": [
+			{
+				"label" : "Crimson",
+				"name":"q3a",
+				"value": "Crimson"
+			},
+			{
+				"Label" : "Ruby",
+				"name":"q3b",
+				"value": "Ruby"
+			},
+			{
+				"Label" : "Scarlett",
+				"name":"q3c",
+				"value": "Scarlett"
+			}
+		]
+	},
+	"questionText":"What shade of Red do you prefer?",
+	"children":[],
+	"validation":{},
+	"displayProperties":{},
+	"displayConditions":[
+		{
+			"questionReference":"q1",
+			"value" : {
+				"is" : "Red"
+			}
+		}
+	],
+	"skipConditions":[
+		{
+			"questionReference":"q1",
+			"value" : {
+				"is not" : "Red"
+			}
+		}
+	],
+	"branchConditions":[],
+},
+{
+	"questionReference":"q4",
+	"questionType" : "Boolean",
+	"questionLang":"en_GB",
+	"parts" : [
+		{
+			"label":"Yes",
+			"name":"q4a",
+			"value":"true"
+		},
+		{
+			"label":"No",
+			"name":"q4b",
+			"value":"false"
+		}
+	],
+	"questionText":"Do you have a crayon in this colour?",
+	"children":[],
+	"validation":{
+		"required":"true"
+	},
+	"displayProperties":{},
+	"displayConditions":[
+	],
+	"skipConditions":[],
+	"branchConditions":[],
+},
+{
+	"questionReference":"q5",
+	"questionType" : "InputText",
+	"questionLang":"en_GB",
+	"parts" : [
+		{
+			"text": {
+				"label":"Name",
+				"name":"q4a",
+			}
+		}
+	],
+	"questionText":"What is your name?",
+	"children":[],
+	"validation":{
+		"required":"true",
+		"max_length":20
+	},
+	"displayProperties":{},
+	"displayConditions":[],
+	"skipConditions":[],
+	"branchConditions":[],
+},
+{
+	"questionReference":"q6",
+	"questionType" : "Boolean",
+	"questionLang":"en_GB",
+	"parts" : [
+		{
+			"label":"Yes",
+			"name":"q4a",
+			"value":"true"
+		},
+		{
+			"label":"No",
+			"name":"q4b",
+			"value":"false"
+		}
+	],
+	"questionText":"Do you have children?",
+	"children":[],
+	"validation":{
+		"required":"true"
+	},
+	"displayProperties":{},
+	"displayConditions":[
+	],
+	"skipConditions":[],
+	"branchConditions":[],
+},
+{
+	"questionReference":"q7",
+	"questionType" : "RepeatingGroup",
+	"questionLang":"en_GB",
+	"parts" : [
+	],
+	"questionText":"What are the names and ages of your children?",
+	"children": [
+		{
+			"questionReference":"q7_1",
+			"questionType" : "InputText",
+			"questionLang":"en_GB",
+			"parts" : [
+				{
+					"text": {
+						"label":"Name",
+						"name":"q7_1a",
+					}
+				}
+			],
+			"questionText":"Your childs name",
+			"children":[],
+			"validation":{
+				"required":"true",
+				"max_length":20,
+				"regexp":"[A-Za-z ]{2,}"
+			},
+			"displayProperties":{},
+			"displayConditions":[],
+			"skipConditions":[],
+			"branchConditions":[],
+		},
+		{
+			"questionReference":"q7_2",
+			"questionType" : "InputText",
+			"questionLang":"en_GB",
+			"parts" : [
+				{
+					"text": {
+						"label":"Age",
+						"name":"q7_2b",
+					}
+				}
+			],
+			"questionText":"Your childs age",
+			"children":[],
+			"validation":{
+				"required":"true",
+				"is_numeric":"true"
+			},
+			"displayProperties":{},
+			"displayConditions":[],
+			"skipConditions":[],
+			"branchConditions":[],
+		}
+	],
+	"validation":{
+		"required":"true"
+	},
+	"displayProperties":{},
+	"displayConditions":[],
+	"skipConditions":[],
+	"branchConditions":[],	
+},
+{
+	"questionReference":"q8",
+	"questionType" : "RepeatingGroup",
+	"questionLang":"en_GB",
+	"questionText":"What schools do they attend?",
+	"children":[
+		{
+			"questionReference":"q8_1",
+			"questionType" : "InputText",
+			"questionLang":"en_GB",
+			"parts" : [
+				{
+					"text" : {
+						"label":"Name of #{q6name|} school",
+						"name":"q8schoolname"
+					},
+				}
+			],
+			"questionText":"What schools do they attend?",
+			"children":[
+			
+			],
+			"validation":{
+				"required":"true"
+			},
+			"displayProperties":{},
+			"displayConditions":[],
+			"skipConditions":[],
+			"branchConditions":[],
+		},
+		{
+			"questionReference":"q8_2",
+			"questionType" : "MultipleChoice",
+			"questionLang":"en_GB",
+			"parts" : {
+				"selectOne": [
+					{
+						"label" : "Primary",
+						"name":"q8_2a",
+						"value": "Primary"
+					},
+					{
+						"label" : "Secondary",
+						"name":"q8_2b",
+						"value": "Secondary"
+					},
+					{
+						"label":"Higher Education",
+						"name":"q8_2c",
+						"value":"Higher Education"
+					}
+				]
+			},
+			"questionText":"Type of school",
+			"children":[],
+			"validation":{
+				"required":"true",
+			},
+			"displayProperties":{},
+			"displayConditions":[],
+			"skipConditions":[],
+			"branchConditions":[]
+		}
+	],
+	"validation":{
+		"required":"true"
+	},
+	"displayProperties":{},
+	"displayConditions":[
+		{
+			"questionReference":"q6",
+			"value" : {
+				"is" : "Yes"
+			}
+		}
+	],
+	"skipConditions":[
+		{
+			"questionReference":"q6",
+			"value" : {
+				"is" : "No"
+			}
+		}
+	],
+	"branchConditions":[
+		{
+			"iterate": {
+				"responses": {
+					"question" : "q7"
+				}
+			}
+		}
+	],
+},
